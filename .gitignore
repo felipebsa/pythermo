@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+pythermo_dados.json
+backup_*.json
+ranking.csv
+.vscode/
+.idea/
