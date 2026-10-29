@@ -19,10 +19,6 @@ def cadastrar_palavra(dados):
 
 
 def listar_palavras(dados):
-    """
-    Mostra todas as palavras cadastradas (numeradas) e o total no final.
-    """
-    # TODO: Eduardo
     contador = 0
     total_palavras = dados["palavras"]
     
@@ -38,20 +34,23 @@ def remover_palavra(dados):
     e remove. Depois salva.
     """
     # TODO: Eduardo
-    print("Remoção ainda não implementada.")
+    remover = int(input("\nDigite qual palavra será removida: (coloque o número correspondente a palavra, OBS: use a função de listar para conferir a numeração)\n\n>>> "))
+    total_palavras = len(dados["palavras"])
+
+    if remover >= 1 and remover <= total_palavras:
+        print("\nA Palavra foi encontrada!!\n\nPalavra encontrada: \n")
+
+        opcao = input("Deseja remover ela? (s/n)\nEscolha: ").strip()
+
+        match opcao:
+            case "s":
+                print("aaa")
+            case "n":
+                print("bbb")
+
 
 
 def menu_admin(dados):
-    """
-    Pede a senha (SENHA_ADMIN). Se errar, volta pro menu principal.
-    Se acertar, mostra um submenu:
-        1 - Cadastrar palavra
-        2 - Listar palavras
-        3 - Remover palavra
-        0 - Voltar
-    Dica: dá pra copiar o jeito que o main() do main.py faz o menu.
-    """
-    # TODO: Eduardo
     tentativa_senha = input("\n===============================================\nPor favor, insira a senha para acessar o painel de admin:\n>>> ")
 
     if tentativa_senha == SENHA_ADMIN:
