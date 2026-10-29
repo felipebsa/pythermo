@@ -23,7 +23,13 @@ def listar_palavras(dados):
     Mostra todas as palavras cadastradas (numeradas) e o total no final.
     """
     # TODO: Eduardo
-    print("Listagem ainda não implementada.")
+    contador = 0
+    total_palavras = dados["palavras"]
+    
+    for indice, palavra in enumerate(total_palavras, start=1):
+        contador += 1
+        print(f"{indice} - {palavra}")
+    print("TOTAL:", contador)
 
 
 def remover_palavra(dados):
@@ -46,4 +52,31 @@ def menu_admin(dados):
     Dica: dá pra copiar o jeito que o main() do main.py faz o menu.
     """
     # TODO: Eduardo
-    print("Modo admin ainda não implementado.")
+    tentativa_senha = input("\n===============================================\nPor favor, insira a senha para acessar o painel de admin:\n>>> ")
+
+    if tentativa_senha == SENHA_ADMIN:
+        while True:
+            print("===============================================\nPAINEL DE ADMIN\n")
+            print("1 - Cadastrar palavra")
+            print("2 - Listar palavras")
+            print("3 - Remover palavra")
+            print("0 - Voltar")
+            opcao = input("\nEscolha: ").strip()
+
+            match opcao:
+                case "1":
+                    cadastrar_palavra(dados)
+                case "2":
+                    listar_palavras(dados)
+                case "3":
+                    remover_palavra(dados)
+                case "0":
+                    print("\nSaindo do terminal...")
+                    break
+                case _:
+                    print("\nOpção inválida.")
+            print("\n===============================================\n")
+
+    else:
+        print("\nSenha incorreta.")
+        return
