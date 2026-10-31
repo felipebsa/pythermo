@@ -66,6 +66,12 @@ def palavra_do_dia(dados):
     e mudar no dia seguinte. A ideia é usar a data de hoje (date.today())
     pra escolher uma posição da lista dados["palavras"].
     """
+    palavra = dados["palavras"]
+
+    indice = date.today().toordinal() % len(palavra)
+
+    return palavra[indice].upper() 
+    
     # TODO: Gabriel
     pass
 
