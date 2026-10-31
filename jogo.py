@@ -44,6 +44,18 @@ def pedir_chute():
     Pede um chute pro jogador e só aceita se tiver 5 letras e só letras.
     Devolve o chute em MAIÚSCULO.
     """
+    
+    chute = input("Digite uma palavra de 5 letras: ").strip().upper()
+
+    if len(chute) != 5:
+        print("A palvra tem que ter 5 letras. ")
+
+    elif len(chute) != chute.isalpha():
+        print("A palavra só pode conter letras. ")
+
+    else:
+        return chute
+        
     # TODO: Gabriel
     pass
 
