@@ -35,6 +35,15 @@ def mostrar_dicas(chute, resultado):
         [C] -> certo   (C) -> existe   _C_ -> não existe
     Se quiser usar cor no terminal, fica à vontade.
     """
+    
+    for letra, res in zip(chute, resultado):
+        if res == "certo":
+            print(f"[{letra}]", end="")
+        elif res == "existe":
+            print(f"({letra})", end="")
+        else:
+            print(f"_{letra}_", end="")
+    
     # TODO: Gabriel
     pass
 
