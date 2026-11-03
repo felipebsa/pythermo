@@ -16,9 +16,24 @@ def buscar_jogador(dados, nome):
          "sequencia_atual": 0, "melhor_sequencia": 0}
     Devolve o dicionário do jogador.
     """
-    # TODO: Gabriel
-    pass
 
+    for jogador in dados["jogadores"]:
+        if jogador["nome"].lower() == nome.lower():
+            return jogador
+
+    jogador_novo ={
+        "nome": nome,
+        "vitorias": 0,
+        "derrotas": 0,
+        "sequencia_atual": 0,
+        "melhor_sequencia": 0
+    }
+
+    dados["jogadores"].append(jogador_novo)
+
+    return jogador_novo
+
+    # TODO: Gabriel
 
 def registrar_partida(dados, nome, palavra, venceu, tentativas, modo):
     """
