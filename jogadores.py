@@ -32,9 +32,34 @@ def registrar_partida(dados, nome, palavra, venceu, tentativas, modo):
          "data": datetime.now().strftime("%Y-%m-%d %H:%M")}
     4. salvar_dados(dados)
     """
-    # TODO: Gabriel
-    pass
+    
+    jogador = buscar_jogador(dados, nome)
 
+    if venceu:
+        jogador["vitorias"] += 1
+        jogador["sequencia_atual"] += 1
+
+        if jogador["sequencia_atual"] > jogador["melhor_sequencia"]:
+            jogador["melhor_sequencia"] = jogador["sequencia_atual"]
+
+    else:
+        jogador["derrotas"] += 1
+        jogador["sequencia_atual"] = 0   # sobrou nada pro beta
+
+    partida = {
+        "jogador": nome,
+        "palavra": palavra,
+        "venceu": venceu,
+        "tentativas": tentativas,
+        "modo": modo,
+        "data": datetime.now().strftime("%Y-%m-%d %H:%M")
+    }
+
+    dados["partidas"].append(partida)
+
+    salvar_dados(dados)
+
+    # TODO: Gabriel
 
 def mostrar_ranking(dados):
     """
