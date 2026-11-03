@@ -62,10 +62,10 @@ Nessa função você pode digitar a palavra que você quer adicionar. Só que pr
 ### Listar palavras
 Mostra todas as palavras cadastradas, numeradas, e o total no final.
 
-EX:
-1 - ARROZ
-2 - BAGRE
-3 - PELOS
+EX:\n
+1 - ARROZ\n
+2 - BAGRE\n
+3 - PELOS\n
 TOTAL: 3
 
 ### Remover palavra
