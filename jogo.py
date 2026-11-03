@@ -53,8 +53,6 @@ def verificar_chute(chute, palavra):
 
 
     # TODO: Gabriel
-    
-
 
 def mostrar_dicas(chute, resultado):
     """
@@ -74,8 +72,6 @@ def mostrar_dicas(chute, resultado):
 
 
     # TODO: Gabriel
-    
-
 
 def pedir_chute():
     """
@@ -95,8 +91,6 @@ def pedir_chute():
         return chute
         
     # TODO: Gabriel
-    
-
 
 def palavra_do_dia(dados):
     """
@@ -112,8 +106,6 @@ def palavra_do_dia(dados):
     
     # TODO: Gabriel
     
-
-
 def jogar(dados, nome_jogador, modo):
     """
     Roda uma partida inteira.
@@ -131,4 +123,54 @@ def jogar(dados, nome_jogador, modo):
     if not dados["palavras"]:
         print("Não tem nenhuma palavra cadastrada. Cadastre no modo admin.")
         return
+    
+    if modo == "livre":
+        palavra = random.choice(dados["palavras"]).upper()
 
+    else:
+        palavra = palavra_do_dia(dados)
+
+    tentativas = 0
+    venceu = False
+
+    while tentativas < MAX_TENTATIVAS:
+        print(f"\n Tentativa {tentativas + 1} de 6 \n")
+
+        chute = pedir_chute()
+
+        tentativas += 1
+
+        resultado = verificar_chute(chute, palavra)
+
+        mostrar_dicas(chute, resultado)
+
+        if chute == palavra:
+            venceu = True
+            break
+
+    print("\n Resultado \n")
+
+    if venceu:
+        print("Você acertou a palavra. ")
+        print(f"Palavra: {palavra}")
+        print(f"Você venceu em {tentativas} tentativas")
+
+    else:
+        print("Você perdeu. ")
+        print(f"A palavra era: {palavra}")
+
+    # Salvar a partida
+    registrar_partida(
+        dados,
+        nome_jogador,
+        palavra,
+        venceu,
+        tentativas,
+        modo
+    )
+
+    salvar_dados(dados)
+
+    print("Partida registrada com sucesso!")
+
+    # TODO: Gabriel
