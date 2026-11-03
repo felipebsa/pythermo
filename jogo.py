@@ -82,7 +82,7 @@ def pedir_chute():
     chute = input("Digite uma palavra de 5 letras: ").strip().upper()
 
     if len(chute) != 5:
-        print("A palvra tem que ter 5 letras. ")
+        print("A palavra deve ter 5 letras. ")
 
     elif not chute.isalpha():
         print("A palavra só pode conter letras. ")
