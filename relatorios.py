@@ -1,3 +1,4 @@
+
 # relatorios.py
 #   palavras_dificeis -> Eduardo
 #   exportar_ranking_csv e fazer_backup -> Richard Murilo
@@ -10,26 +11,14 @@ from dados import ARQUIVO_DADOS
 
 
 def palavras_dificeis(dados):
-    contagem = {}
-
-    for partida in dados["partidas"]:
-        if not partida["venceu"]:
-            palavra = partida["palavra"]
-            contagem[palavra] = contagem.get(palavra, 0) + 1
-
-    if len(contagem) == 0:
-        print("\nNinguém perdeu ainda. (ainda tá sobrando algo)")
-        return
-
-    ordenadas = sorted(contagem.items(), key=lambda item: item[1], reverse=True)
-
-    print("\n===============================================")
-    print("PALAVRAS QUE MAIS DERRUBAM (mogaram os betas)\n")
-
-    for posicao, item in enumerate(ordenadas[:5], start=1):
-        palavra = item[0]
-        derrotas = item[1]
-        print(f"{posicao}. {palavra} - {derrotas} derrotas")
+    """
+    Mostra as palavras que mais derrubam gente: conta, em dados["partidas"],
+    quantas vezes cada palavra apareceu numa partida perdida (venceu == False)
+    e mostra da que mais derrubou pra que menos derrubou (top 5 tá bom).
+    Se ninguém perdeu ainda, avisa.
+    """
+    # TODO: Eduardo
+    print("Estatística ainda não implementada.")
 
 
 def exportar_ranking_csv(dados):
@@ -40,8 +29,30 @@ def exportar_ranking_csv(dados):
     No fim mostra uma mensagem dizendo que exportou.
     Dica: tem uma função parecida no snack-bar (export_report_csv).
     """
-    # TODO: Richard
-    print("Exportação ainda não implementada.")
+    # RICHARD: Exportação do ranking para CSV
+
+    campos = [
+        "nome",
+        "vitorias",
+        "derrotas",
+        "sequencia_atual",
+        "melhor_sequencia"
+    ]
+
+    jogadores = dados["jogadores"]
+
+    with open("ranking.csv", "w", newline="", encoding="utf-8") as arquivo:
+        escritor = csv.DictWriter(arquivo, fieldnames=campos)
+
+        escritor.writeheader()
+
+        for jogador in jogadores:
+            escritor.writerow({
+                campo: jogador.get(campo, "")
+                for campo in campos
+            })
+
+    print("Ranking exportado com sucesso para ranking.csv!")
 
 
 def fazer_backup():
@@ -50,5 +61,19 @@ def fazer_backup():
     tipo "backup_20261024_163000.json", e mostra o nome do arquivo criado.
     Dica: tem uma função parecida no snack-bar (backup_data).
     """
-    # TODO: Richard
-    print("Backup ainda não implementado.")
+    # RICHARD: Criação de backup dos dados
+
+    data_hora = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    nome_backup = "backup_" + data_hora + ".json"
+
+    try:
+        shutil.copy2(ARQUIVO_DADOS, nome_backup)
+
+        print(f"Backup criado com sucesso: {nome_backup}")
+
+    except FileNotFoundError:
+        print("Erro: arquivo de dados não encontrado.")
+
+    except OSError as erro:
+        print(f"Erro ao criar backup: {erro}")
