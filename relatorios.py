@@ -10,14 +10,26 @@ from dados import ARQUIVO_DADOS
 
 
 def palavras_dificeis(dados):
-    """
-    Mostra as palavras que mais derrubam gente: conta, em dados["partidas"],
-    quantas vezes cada palavra apareceu numa partida perdida (venceu == False)
-    e mostra da que mais derrubou pra que menos derrubou (top 5 tá bom).
-    Se ninguém perdeu ainda, avisa.
-    """
-    # TODO: Eduardo
-    print("Estatística ainda não implementada.")
+    contagem = {}
+
+    for partida in dados["partidas"]:
+        if not partida["venceu"]:
+            palavra = partida["palavra"]
+            contagem[palavra] = contagem.get(palavra, 0) + 1
+
+    if len(contagem) == 0:
+        print("\nNinguém perdeu ainda. (ainda tá sobrando algo)")
+        return
+
+    ordenadas = sorted(contagem.items(), key=lambda item: item[1], reverse=True)
+
+    print("\n===============================================")
+    print("PALAVRAS QUE MAIS DERRUBAM (mogaram os betas)\n")
+
+    for posicao, item in enumerate(ordenadas[:5], start=1):
+        palavra = item[0]
+        derrotas = item[1]
+        print(f"{posicao}. {palavra} - {derrotas} derrotas")
 
 
 def exportar_ranking_csv(dados):

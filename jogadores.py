@@ -76,21 +76,49 @@ def registrar_partida(dados, nome, palavra, venceu, tentativas, modo):
 
     # TODO: Gabriel
 
+
 def mostrar_ranking(dados):
-    """
-    Mostra os jogadores ordenados por vitórias (quem tem mais em cima).
-    Mostra também derrotas, sequência atual e melhor sequência.
-    Se não tiver jogador, avisa.
-    """
-    # TODO: Eduardo
-    print("Ranking ainda não implementado.")
+    jogadores = dados["jogadores"]
+
+    if len(jogadores) == 0:
+        print("\nAinda não há jogadores no ranking.")
+        return
+
+    ordenados = sorted(jogadores, key=lambda j: j["vitorias"], reverse=True)
+
+    print("\n===============================================")
+    print("RANKING\n")
+    print(f"{'Pos':<6}{'Nome':<16}{'Vitórias':<10}{'Derrotas':<10}{'Seq. atual':<12}{'Melhor seq.'}")
+    print("-" * 65)
+
+    for posicao, jogador in enumerate(ordenados, start=1):
+        nome = jogador["nome"]
+        vitorias = jogador["vitorias"]
+        derrotas = jogador["derrotas"]
+        atual = jogador["sequencia_atual"]
+        melhor = jogador["melhor_sequencia"]
+        print(f"{posicao:<6}{nome:<16}{vitorias:<10}{derrotas:<10}{atual:<12}{melhor}")
 
 
 def mostrar_historico(dados):
-    """
-    Lista as partidas de dados["partidas"]: data, jogador, palavra,
-    se ganhou ou perdeu e em quantas tentativas.
-    Extra (se quiser): perguntar um nome e mostrar só as partidas dele.
-    """
-    # TODO: Eduardo
-    print("Histórico ainda não implementado.")
+    partidas = dados["partidas"]
+
+    if len(partidas) == 0:
+        print("\nAinda não há partidas no histórico.")
+        return
+
+    print("\n===============================================")
+    print("HISTÓRICO DE PARTIDAS\n")
+
+    for partida in partidas:
+        data = partida["data"]
+        jogador = partida["jogador"]
+        palavra = partida["palavra"]
+        tentativas = partida["tentativas"]
+
+        if partida["venceu"]:
+            resultado = "ganhou"
+        else:
+            resultado = "perdeu"
+
+        print(f"{data} | {jogador} | {palavra} | {resultado} em {tentativas} tentativas")

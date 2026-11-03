@@ -7,21 +7,31 @@ SENHA_ADMIN = "1c2"
 
 
 def cadastrar_palavra(dados):
-    """
-    Pede uma palavra nova e só cadastra se:
-    - tiver exatamente 5 letras
-    - só tiver letras (sem número, espaço ou acento)
-    - não estiver repetida na lista
-    Salva em MAIÚSCULO e chama salvar_dados(dados).
-    """
-    # TODO: Eduardo
-    print("Cadastro ainda não implementado.")
+    alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    palavra = input("\nDigite a palavra que será cadastrada: (5 letras, sem acento)\n\n>>> ").strip().upper()
+
+    if len(palavra) != 5:
+        print("\nErro: a palavra precisa ter 5 letras.")
+        return
+
+    for letra in palavra:
+        if letra not in alfabeto:
+            print("\nErro: a palavra só pode ter letras, sem números, espaços ou acentos.")
+            return
+
+    if palavra in dados["palavras"]:
+        print("\nErro: essa palavra já está cadastrada.")
+        return
+
+    dados["palavras"].append(palavra)
+    salvar_dados(dados)
+    print(f"\nA palavra {palavra} foi cadastrada com sucesso!")
 
 
 def listar_palavras(dados):
     contador = 0
     total_palavras = dados["palavras"]
-    
+
     for indice, palavra in enumerate(total_palavras, start=1):
         contador += 1
         print(f"{indice} - {palavra}")
@@ -29,25 +39,38 @@ def listar_palavras(dados):
 
 
 def remover_palavra(dados):
-    """
-    Pede a palavra, confere se existe, pede confirmação (s/n)
-    e remove. Depois salva.
-    """
-    # TODO: Eduardo
-    remover = int(input("\nDigite qual palavra será removida: (coloque o número correspondente a palavra, OBS: use a função de listar para conferir a numeração)\n\n>>> "))
-    total_palavras = len(dados["palavras"])
+    palavras = dados["palavras"]
 
-    if remover >= 1 and remover <= total_palavras:
-        print("\nA Palavra foi encontrada!!\n\nPalavra encontrada: \n")
+    if len(palavras) == 0:
+        print("\nNão há palavras cadastradas.")
+        return
 
-        opcao = input("Deseja remover ela? (s/n)\nEscolha: ").strip()
+    escolha = input("\nDigite qual palavra será removida: (coloque o número correspondente a palavra, OBS: use a função de listar para conferir a numeração)\n\n>>> ").strip()
 
-        match opcao:
-            case "s":
-                print("aaa")
-            case "n":
-                print("bbb")
+    if not escolha.isdigit():
+        print("\nErro: digite apenas o número da palavra.")
+        return
 
+    numero = int(escolha)
+
+    if numero < 1 or numero > len(palavras):
+        print("\nErro: esse número não existe na lista.")
+        return
+
+    palavra = palavras[numero - 1]
+    print(f"\nA Palavra foi encontrada!!\n\nPalavra encontrada: {palavra}\n")
+
+    opcao = input("Deseja remover ela? (s/n)\nEscolha: ").strip().lower()
+
+    match opcao:
+        case "s":
+            palavras.remove(palavra)
+            salvar_dados(dados)
+            print(f"\nA palavra {palavra} foi removida com sucesso!")
+        case "n":
+            print("\nRemoção cancelada.")
+        case _:
+            print("\nOpção inválida. Nada foi removido.")
 
 
 def menu_admin(dados):
@@ -70,7 +93,7 @@ def menu_admin(dados):
                 case "3":
                     remover_palavra(dados)
                 case "0":
-                    print("\nSaindo do terminal...")
+                    print("\nVoltando ao menu principal...")
                     break
                 case _:
                     print("\nOpção inválida.")
