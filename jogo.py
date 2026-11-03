@@ -24,6 +24,31 @@ def verificar_chute(chute, palavra):
 
     Cuidado com letra repetida (ex: chute "CARRO" tem dois R).
     """
+
+    chute = chute.upper()
+    palavra = palavra.upper()
+
+    resultado = ["nao"] * 5
+    letras_restantes = {}
+
+    for i in range (TAMANHO_PALAVRA):
+        if chute[i] == palavra[i]:
+            resultado[i] = "certo"
+
+        else:
+            letra = palavra[i]
+            letras_restantes[letra] = letras_restantes.get(letra, 0) + 1
+
+    for i in range (TAMANHO_PALAVRA):
+        if resultado[i] != "certo":
+            letra = palavra[i]
+
+        if letras_restantes.get(letra, 0) > 0:
+            resultado[i] = "existe"
+            letras_restantes[letra] -= 1
+
+    return resultado
+    
     # TODO: Gabriel
     pass
 
