@@ -40,17 +40,20 @@ def verificar_chute(chute, palavra):
             letras_restantes[letra] = letras_restantes.get(letra, 0) + 1
 
     for i in range (TAMANHO_PALAVRA):
-        if resultado[i] != "certo":
-            letra = palavra[i]
+        if resultado[i] == "certo":
+            continue
+
+        letra = chute[i]
 
         if letras_restantes.get(letra, 0) > 0:
             resultado[i] = "existe"
             letras_restantes[letra] -= 1
 
     return resultado
-    
+
+
     # TODO: Gabriel
-    pass
+    
 
 
 def mostrar_dicas(chute, resultado):
@@ -60,17 +63,18 @@ def mostrar_dicas(chute, resultado):
         [C] -> certo   (C) -> existe   _C_ -> não existe
     Se quiser usar cor no terminal, fica à vontade.
     """
-    
+
     for letra, res in zip(chute, resultado):
         if res == "certo":
-            print(f"[{letra}]", end="")
+            print(f"[{letra}]", end=" ")
         elif res == "existe":
-            print(f"({letra})", end="")
+            print(f"({letra})", end=" ")
         else:
-            print(f"_{letra}_", end="")
-    
+            print(f"_{letra}_", end=" ")
+
+
     # TODO: Gabriel
-    pass
+    
 
 
 def pedir_chute():
@@ -84,14 +88,14 @@ def pedir_chute():
     if len(chute) != 5:
         print("A palvra tem que ter 5 letras. ")
 
-    elif len(chute) != chute.isalpha():
+    elif not chute.isalpha():
         print("A palavra só pode conter letras. ")
 
     else:
         return chute
         
     # TODO: Gabriel
-    pass
+    
 
 
 def palavra_do_dia(dados):
@@ -107,7 +111,7 @@ def palavra_do_dia(dados):
     return palavra[indice].upper() 
     
     # TODO: Gabriel
-    pass
+    
 
 
 def jogar(dados, nome_jogador, modo):
@@ -123,9 +127,8 @@ def jogar(dados, nome_jogador, modo):
     4. no fim mostrar se ganhou ou perdeu (e qual era a palavra)
     5. chamar registrar_partida(dados, nome_jogador, palavra, venceu, tentativas, modo)
     """
+
     if not dados["palavras"]:
         print("Não tem nenhuma palavra cadastrada. Cadastre no modo admin.")
         return
 
-    # TODO: Gabriel
-    print("Partida ainda não implementada.")
