@@ -63,10 +63,10 @@ Nessa função você pode digitar a palavra que você quer adicionar. Só que pr
 Mostra todas as palavras cadastradas, numeradas, e o total no final.
 
 #### EX:
-1 - ARROZ
-2 - BAGRE
-3 - PELOS
-TOTAL: 3
+##### 1 - ARROZ
+##### 2 - BAGRE
+##### 3 - PELOS
+##### TOTAL: 3
 
 ### Remover palavra
 Digite o **número** da palavra que você quer remover (use a opção de listar para ver a numeração). O jogo mostra a palavra encontrada e pergunta se você quer mesmo remover: digite `s` para confirmar ou `n` para cancelar.
