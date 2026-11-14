@@ -3,10 +3,6 @@
 Termo no terminal, feito em Python com os dados salvos em JSON.
 Trabalho de Programação e Algoritmos (PA) da turma 1C2 da ETEC Vasco Antonio Venchiarutti.
 
-> TODO Eduardo: completar este README (sobre o jogo, como jogar, funcionalidades,
-> estrutura do JSON, arquivos gerados, integrantes). Dá pra se basear no README do
-> https://github.com/felipebsa/snack-bar
-
 ## Como rodar
 
 Precisa de Python 3.10 ou mais novo.
