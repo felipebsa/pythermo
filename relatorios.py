@@ -22,25 +22,27 @@ def palavras_dificeis(dados):
     for partida in partidas:
         if not partida["venceu"]:
             palavra = partida["palavra"]
-            derrotas_por_palavra[palavra] = derrotas_por_palavra.get(palavra, 0) + 1
+            if palavra in derrotas_por_palavra:
+                derrotas_por_palavra[palavra] += 1
+            else:
+                derrotas_por_palavra[palavra] = 1
 
     if len(derrotas_por_palavra) == 0:
-        print("\nAinda não há derrotas registradas para gerar estatísticas.")
+        print("\nAinda não há derrotas registradas.")
         return
 
-    ordenados = sorted(
-        derrotas_por_palavra.items(),
-        key=lambda item: item[1],
-        reverse=True
-    )[:5]
+    ordenados = sorted(derrotas_por_palavra.items(), key=lambda item: item[1], reverse=True)
+    top_5 = ordenados[:5]
 
     print("\n===============================================")
-    print("PALAVRAS QUE MAIS DERRUBAM (TOP 5)\n")
-    print(f"{'Pos':<6}{'Palavra':<15}{'Derrotas'}")
+    print("PALAVRAS QUE MAIS DERRUBAM\n")
+    print(f"{'Pos':<6}{'Palavra':<16}{'Derrotas'}")
     print("-" * 35)
 
-    for posicao, (palavra, qtd_derrotas) in enumerate(ordenados, start=1):
-        print(f"{posicao:<6}{palavra:<15}{qtd_derrotas}")
+    for posicao, item in enumerate(top_5, start=1):
+        palavra = item[0]
+        derrotas = item[1]
+        print(f"{posicao:<6}{palavra:<16}{derrotas}")
 
 
 def exportar_ranking_csv(dados):
