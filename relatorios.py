@@ -1,5 +1,5 @@
 # relatorios.py
-#   palavras_dificeis -> Eduardo
+#   palavras_dificeis -> eduardo
 #   exportar_ranking_csv e fazer_backup -> Richard Murilo
 
 import csv
