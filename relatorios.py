@@ -1,4 +1,3 @@
-
 # relatorios.py
 #   palavras_dificeis -> Eduardo
 #   exportar_ranking_csv e fazer_backup -> Richard Murilo
@@ -17,8 +16,31 @@ def palavras_dificeis(dados):
     e mostra da que mais derrubou pra que menos derrubou (top 5 tá bom).
     Se ninguém perdeu ainda, avisa.
     """
-    # TODO: Eduardo
-    print("Estatística ainda não implementada.")
+    partidas = dados["partidas"]
+    derrotas_por_palavra = {}
+
+    for partida in partidas:
+        if not partida["venceu"]:
+            palavra = partida["palavra"]
+            derrotas_por_palavra[palavra] = derrotas_por_palavra.get(palavra, 0) + 1
+
+    if len(derrotas_por_palavra) == 0:
+        print("\nAinda não há derrotas registradas para gerar estatísticas.")
+        return
+
+    ordenados = sorted(
+        derrotas_por_palavra.items(),
+        key=lambda item: item[1],
+        reverse=True
+    )[:5]
+
+    print("\n===============================================")
+    print("PALAVRAS QUE MAIS DERRUBAM (TOP 5)\n")
+    print(f"{'Pos':<6}{'Palavra':<15}{'Derrotas'}")
+    print("-" * 35)
+
+    for posicao, (palavra, qtd_derrotas) in enumerate(ordenados, start=1):
+        print(f"{posicao:<6}{palavra:<15}{qtd_derrotas}")
 
 
 def exportar_ranking_csv(dados):
